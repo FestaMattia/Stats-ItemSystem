@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Stats
 {
     [System.Serializable]
-    public class Defense : StatsBase
+    public class Defense : EntityStat
     {
-        
+
     }
 }

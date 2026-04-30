@@ -1,20 +1,11 @@
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
+using System.Linq; //TODO: Remove Linq
 
 namespace Stats
 {
-    public abstract class StatsBase : MonoBehaviour
+    public class EntityStat : StatBase
     {
-        private List<StatModifier> statModifiers = new List<StatModifier>();
-        [SerializeField] private int baseValue;
-
-        public int BaseValue => baseValue;
-
-        //private int currentValue;
-
-        public int CurrentValue
+        public override int CurrentValue
         {
             get
             {
@@ -23,8 +14,5 @@ namespace Stats
                 return (int)(baseValue + flat) * (1 + percentAdd / 100);
             }
         }
-
-
     }
 }
-
