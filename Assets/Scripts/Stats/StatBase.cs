@@ -5,7 +5,6 @@ namespace Stats
 {
     public abstract class StatBase : MonoBehaviour
     {
-        //protected List<StatModifier> statModifiers = new List<StatModifier>();
         [SerializeField] protected int baseValue;
         private List<StatModifier> modifiers = new();
 
