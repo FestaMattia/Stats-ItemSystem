@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Stats
 {
     [System.Serializable]
-    public class Health : EntityStat
+    public class Health : StatBase
     {
 
     }

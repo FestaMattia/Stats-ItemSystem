@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Stats
 {
     [System.Serializable]
-    public class DodgeChance : EntityStat
+    public class DodgeChance : StatBase
     {
 
     }

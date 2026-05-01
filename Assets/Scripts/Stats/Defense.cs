@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Stats
 {
     [System.Serializable]
-    public class Defense : EntityStat
+    public class Defense : StatBase
     {
 
     }
