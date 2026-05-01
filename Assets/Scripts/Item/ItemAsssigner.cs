@@ -4,17 +4,14 @@ namespace Item
 {
     public class ItemAsssigner : MonoBehaviour
     {
-        [SerializeField] private ItemBase item;
-
+        private ItemBase item;
+        [SerializeField] private ItemData itemData;
         [SerializeField] private StatsContainer statsContainer;
 
         private void Awake()
         {
-            if (item == null)
-            {
-                Debug.LogError("Item is not assigned in the inspector.");
-                return;
-            }
+            item = new ItemBase();
+            item.SetItemData(itemData);
             if (statsContainer == null)
             {
                 Debug.LogError("StatsContainer is not assigned in the inspector.");

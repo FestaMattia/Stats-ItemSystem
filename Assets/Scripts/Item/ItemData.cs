@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "New Item Data", menuName = "ScriptableObjects/ItemData")]
-public class ItemData : ScriptableObject
+namespace Item
 {
-    [SerializeField] private List<StatModifier> baseStatModifiers = new();
-    public IReadOnlyList<StatModifier> BaseStatModifiers => baseStatModifiers;
+    [CreateAssetMenu(fileName = "New Item Data", menuName = "ScriptableObjects/ItemData")]
+    public class ItemData : ScriptableObject
+    {
+        [SerializeField] private List<ModifierSlot> modifierSlots = new();
+        public IReadOnlyList<ModifierSlot> ModifierSlots => modifierSlots;
+    }
 }

@@ -1,65 +1,37 @@
-using UnityEngine;
-using System.Collections.Generic;
+using Item;
 using Stats;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Item
+public class ItemBase : IModifierSource
 {
-    public class ItemBase : IModifierSource //TODO: remove Monobehavior and create items as pure data classes
+    private ItemData itemData;
+    private int currentLevel = 1;
+    private Rarity currentRarity = Rarity.COMMON;
+
+    public void SetLevel(int level) => currentLevel = level;
+    public void SetRarity(Rarity rarity) => currentRarity = rarity;
+    public void SetItemData(ItemData data) => itemData = data;
+    public IEnumerable<StatModifier> GetModifiers()
     {
-        [SerializeField] private ItemData itemData;
-        private List<StatModifier> currentStatModifiers = new();
-        private int currentLevel = 1;
-        private Rarity currentRarity = Rarity.UNCOMMON;
-        public void SetLevel(int level)
-        {
-            currentLevel = level;
-            UpdateStatModifiers();
-        }
-        public void SetRarity(Rarity rarity)
-        {
-            currentRarity = rarity;
-            UpdateStatModifiers();
-        }
-        /// <summary>
-        /// Sets the active stat modifiers based on the item's rarity.
-        /// </summary>
-        private void SetActiveModifiers()
-        {
-            if (itemData == null)
-            {
-                return;
-            }
+        if (itemData == null) yield break;
 
-            currentStatModifiers.Clear();
-            for (int i = 0; i < itemData.BaseStatModifiers.Count; i++)
-            {
-                if (itemData.BaseStatModifiers[i].IsActive || itemData.BaseStatModifiers[i].IsDefaultStat)
-                {
-                    currentStatModifiers.Add(itemData.BaseStatModifiers[i]);
-                }
-            }
-        }
-        /// <summary>
-        /// Updates the stat modifiers based on current level.
-        /// </summary>
-        public void UpdateStatModifiers() //TODO: Optimize, ask Mattia if we should use BaseStats or CurrentStats for exponential growth
+        foreach (var slot in itemData.ModifierSlots)
         {
-            for (int i = 0; i < itemData.BaseStatModifiers.Count; i++)
-            {
-                if (itemData.BaseStatModifiers[i].Type == ModifierType.PERCENT_ADD)
-                    continue; // Skip percentage modifiers
+            if (!slot.IsUnlockedAt(currentRarity)) continue;
 
-                var modifier = itemData.BaseStatModifiers[i];
-                // Increase the value of the modifier based on level
-                int newValue = modifier.Value + (currentLevel * 2);
-                currentStatModifiers[i].SetValue(() => newValue);
+            var modifier = slot.Modifier;
+
+            // Flat modifiers scale with level; percent modifiers don't
+            if (modifier.Type == ModifierType.FLAT)
+            {
+                int scaledValue = modifier.Value + ((currentLevel - 1) * 2);
+                yield return modifier.WithValue(scaledValue);
             }
-        }
-        public IEnumerable<StatModifier> GetModifiers()
-        {
-            Debug.Log("GetModifiers called, returning " + currentStatModifiers.Count + " modifiers.");
-            // upgrade level determines how many elements of the list are active
-            return currentStatModifiers.GetRange(0, Mathf.Min((int)currentRarity, currentStatModifiers.Count));
+            else
+            {
+                yield return modifier;
+            }
         }
     }
 }
