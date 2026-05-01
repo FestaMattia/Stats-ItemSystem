@@ -6,6 +6,15 @@ public class StatModifier
 {
     [SerializeField] private StatType stat;
     [SerializeField] private ModifierType type;
+    [Tooltip("Indicates that this modifier is active by default.")]
+    [SerializeField] private bool isDefaultStat; // Indicates that this modifier is active by default
+    [SerializeField] private bool isActive; // Indicates whether the modifier is currently active
+    public bool IsActive
+    {
+        get => isActive;
+        set => isActive = value;
+    }
+    public bool IsDefaultStat => isDefaultStat; // Expose the default stat flag
     public StatType Stat => stat;
     public ModifierType Type => type;
 

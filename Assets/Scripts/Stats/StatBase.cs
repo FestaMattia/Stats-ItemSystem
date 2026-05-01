@@ -7,20 +7,20 @@ namespace Stats
     {
         //protected List<StatModifier> statModifiers = new List<StatModifier>();
         [SerializeField] protected int baseValue;
-        private readonly List<IModifierSource> sources = new();
+        private List<StatModifier> modifiers = new();
 
-        public void AddSource(IModifierSource source)
+        public void AddModifier(StatModifier modifier)
         {
-            if (!sources.Contains(source))
+            if (!modifiers.Contains(modifier))
             {
-                sources.Add(source);
+                modifiers.Add(modifier);
             }
         }
-        public void RemoveSource(IModifierSource source)
+        public void RemoveModifier(StatModifier modifier)
         {
-            if (sources.Contains(source))
+            if (modifiers.Contains(modifier))
             {
-                sources.Remove(source);
+                modifiers.Remove(modifier);
             }
         }
         public int BaseValue => baseValue;
@@ -35,18 +35,15 @@ namespace Stats
         {
             int finalValue = baseValue;
             float percentAdd = 0;
-            foreach (var source in sources)
+            foreach (var modifier in modifiers)
             {
-                foreach (var modifier in source.GetModifiers())
+                if (modifier.Type == ModifierType.FLAT)
                 {
-                    if (modifier.Type == ModifierType.FLAT)
-                    {
-                        finalValue += modifier.Value;
-                    }
-                    else if (modifier.Type == ModifierType.PERCENT_ADD)
-                    {
-                        percentAdd += modifier.Value;
-                    }
+                    finalValue += modifier.Value;
+                }
+                else if (modifier.Type == ModifierType.PERCENT_ADD)
+                {
+                    percentAdd += modifier.Value;
                 }
             }
             finalValue *= 1 + (int)(percentAdd / 100f);
