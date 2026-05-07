@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae8fc78cf6251a8459a5625dbec0ec72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Item::Item.ItemAsssigner
-  itemData: {fileID: 11400000, guid: ec1eed2845ef0ac49b45e8abf4daba21, type: 2}
+  itemData: {fileID: 11400000, guid: 39c68ecfdea2cf04ea78019f3986fc9c, type: 2}
   statsContainer: {fileID: 1466957564}
 --- !u!4 &269778775
 Transform:

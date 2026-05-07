@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771681b2ed27ab348abd7bcebec0e41d, type: 3}
   m_Name: MagicBoots
   m_EditorClassIdentifier: Item::ItemData
-  baseStatModifiers:
-  - stat: 0
-    type: 0
-    value: 12
-  - stat: 1
-    type: 0
-    value: 3
-  - stat: 1
-    type: 1
-    value: 100
+  modifierSlots:
+  - modifier:
+      stat: 1
+      type: 0
+      value: 10
+    isCore: 1
+    minimumRarity: 0
+  - modifier:
+      stat: 0
+      type: 0
+      value: 15
+    isCore: 0
+    minimumRarity: 1

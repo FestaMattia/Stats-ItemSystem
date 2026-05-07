@@ -1,9 +1,10 @@
 {
-    "name": "Inventory",
-    "rootNamespace": "Inventory",
+    "name": "Game",
+    "rootNamespace": "",
     "references": [
-        "GUID:81c58d29a3267b748aed5586cd4410ce",
-        "GUID:c59f625bf25a3aa4f84c5521a5f9aefa"
+        "GUID:30622ff8ffdfc0842a8425149eb3eb24",
+        "GUID:274a91025e0dd1e4789c60d2f6a5d455",
+        "GUID:81c58d29a3267b748aed5586cd4410ce"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
